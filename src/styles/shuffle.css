@@ -1,0 +1,41 @@
+/* ---------- 换一种排法 ---------- */
+.sh-stage { --spring: cubic-bezier(0.32, 0.72, 0, 1); --rx: 0deg; --ry: 0deg; position: relative; transform: perspective(1400px) rotateX(var(--rx)) rotateY(var(--ry)); transition: transform .6s var(--spring), box-shadow .6s var(--spring); will-change: transform; }
+.sh-stage:hover { box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .9); }
+.sh-over { position: absolute; z-index: 2; pointer-events: none; opacity: 0; border-radius: 12px; transition: opacity .25s ease; }
+.sh-glare { position: absolute; inset: 0; z-index: 3; pointer-events: none; border-radius: inherit; opacity: 0; transition: opacity .5s; background: radial-gradient(60% 50% at var(--gx, 50%) var(--gy, 30%), rgba(255, 255, 255, .12), transparent 70%); mix-blend-mode: soft-light; }
+.sh-stage:hover .sh-glare { opacity: 1; }
+.sh-stage.sh-busy { transform: perspective(1400px) scale(.995); }
+
+.shuffle-btn {
+  --spring: cubic-bezier(0.32, 0.72, 0, 1);
+  position: relative; display: inline-flex; align-items: center; gap: 12px; height: 52px; padding: 0 12px 0 7px;
+  border-radius: 999px; border: 0; background: var(--cream); color: var(--ink); font-size: 15px; font-weight: 650; white-space: nowrap;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 14px 30px -14px rgba(239, 233, 220, .35);
+  transition: transform .35s var(--spring), box-shadow .35s var(--spring), background .25s;
+}
+.shuffle-btn:hover { background: #fff; transform: translateY(-1px); box-shadow: inset 0 1px 0 #fff, 0 18px 36px -14px rgba(239, 233, 220, .45); }
+.shuffle-btn:active { transform: scale(.97); }
+.shuffle-btn kbd { font-family: var(--mono); font-size: 10px; font-weight: 500; padding: 3px 6px; border-radius: 6px; background: rgba(11, 11, 12, .08); color: rgba(11, 11, 12, .55); }
+.sb-disc {
+  position: relative; width: 38px; height: 38px; border-radius: 50%; flex: none;
+  background: radial-gradient(circle, #0b0b0c 0 5%, var(--accent) 6% 28%, #0d0d0e 29% 31%, transparent 32%), repeating-radial-gradient(circle, #141414 0 1.3px, #232325 1.7px 2.6px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .35); animation: sbSpin 6s linear infinite;
+}
+.sb-disc i { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 0 70%, rgba(255, 255, 255, .22) 78%, transparent 86%); }
+.shuffle-btn:hover .sb-disc { animation-duration: 2.2s; }
+.shuffle-btn.busy .sb-disc { animation: sbSpinFast .95s cubic-bezier(.2, .7, .3, 1); }
+.shuffle-btn.busy .sb-label { animation: sbPulse .95s ease; }
+@keyframes sbSpin { to { transform: rotate(360deg); } }
+@keyframes sbSpinFast { from { transform: rotate(0); } to { transform: rotate(1080deg); } }
+@keyframes sbPulse { 40% { opacity: .55; } }
+
+.sh-cap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 0; font-size: 13.5px; color: var(--cream-2); min-height: 1.5em; }
+.sh-tok { animation: tokIn .5s cubic-bezier(0.32, 0.72, 0, 1) both; animation-delay: var(--d); }
+.sh-tok:first-child { color: var(--cream); font-weight: 600; }
+.sh-sep { font-style: normal; color: var(--cream-3); margin-right: 4px; }
+@keyframes tokIn { from { opacity: 0; transform: translateY(6px); filter: blur(3px); } }
+
+/* 生成记录：新的一张像底片小样一样滑进来 */
+.gen-hist button:first-child, .hist button:first-child { animation: printFirst .6s cubic-bezier(0.32, 0.72, 0, 1) both; }
+@keyframes printFirst { from { opacity: 0; transform: translateX(-14px) rotate(-6deg) scale(.8); } }
+@media (prefers-reduced-motion: reduce) { .sh-stage { transform: none !important; } }
